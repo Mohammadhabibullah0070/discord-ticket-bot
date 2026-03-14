@@ -106,6 +106,7 @@ async def myhelp(interaction: discord.Interaction):
     embed.add_field(name="💳 `/payment_method`", value="View available payment methods.", inline=False)
     embed.add_field(name="💰 `/payc4lypso`", value="Get payment details for Admin C4Lypso.", inline=False)
     embed.add_field(name="💰 `/paygojo`", value="Get payment details for Admin GOJO.", inline=False)
+    embed.add_field(name="🤖 `/model`", value="Find out what model/bot this is.", inline=False)
     embed.set_footer(text="Use these commands to interact with the bot.")
     await safe_followup_send(interaction, embed=embed)
 
@@ -151,6 +152,22 @@ async def paygojo(interaction: discord.Interaction):
 async def view_account(interaction: discord.Interaction):
     await interaction.response.defer()
     await safe_followup_send(interaction, content=f"✅ **{interaction.user.name}**, you are verified!")
+
+@bot.tree.command(name="model", description="🤖 Find out what model/bot this is")
+@cooldown(1, 10, BucketType.user)
+async def model(interaction: discord.Interaction):
+    await interaction.response.defer()
+    embed = discord.Embed(
+        title="🤖 Bot Model Info",
+        description="Here's what powers this bot:",
+        color=discord.Color.blurple()
+    )
+    embed.add_field(name="🛠️ Type", value="Custom Discord Ticket & Utility Bot", inline=False)
+    embed.add_field(name="📦 Library", value="discord.py (discord.ext.commands)", inline=False)
+    embed.add_field(name="🐍 Language", value="Python 3", inline=False)
+    embed.add_field(name="💡 Purpose", value="Ticket management, payment info, and server utilities for a Buy & Sell server.", inline=False)
+    embed.set_footer(text="No AI model — just a purpose-built Discord bot!")
+    await safe_followup_send(interaction, embed=embed)
 
 @bot.tree.command(name="refresh_commands", description="🔁 Sync slash commands")
 @cooldown(1, 10, BucketType.user)
